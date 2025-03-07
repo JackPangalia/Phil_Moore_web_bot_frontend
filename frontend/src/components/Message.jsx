@@ -17,15 +17,15 @@ const Message = ({ messageType, message }) => {
 
   return (
     <div
-      className={`p-4 rounded-3xl text-[14px] flex flex-col gap-3 ${
+      className={`p-4  text-[14px] flex flex-col gap-3 ${
         messageType === "ai"
-          ? "bg-gradient-to-t  bg-zinc-900 w-9/10 animate-slide-in-left shadow-lg text-gray-200"
-          : "bg-red-500 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
+          ? "bg-gradient-to-t bg-zinc-950 w-9/10 animate-slide-in-left shadow-lg text-gray-100"
+          : "bg-red-600 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
       }`}
     >
       {messageType === "ai" && (
         <div className="flex items-center gap-3 font-medium">
-          <span className="bg-red-500 py-1 px-2 rounded-lg text-xs text-gray-200">
+          <span className="bg-red-600 py-1 px-2  text-xs text-gray-200">
             AI
           </span>
         </div>

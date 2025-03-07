@@ -5,7 +5,7 @@ const Send = () => {
       fill="black"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="white"
+      stroke="#464952"
       className="size-6 w-10 h-10"
     >
       <path

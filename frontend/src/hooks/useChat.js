@@ -22,14 +22,15 @@ const useChat = () => {
   // Define initial suggestions
   //! Replace with your own initial suggestions
   const INITAL_SUGGESTIONS = [
-    "What AI solutions do you offer?",
-    "How does your chatbot development process work?",
-    "Can you explain how AI agents improve business efficiency?",
+    "I'm looking to sell my house! Can you help?",
+    "Show me homes for sale in Burnaby.",
+    "Can you explain the home-buying process?",
   ];
+  
 
   //! Replace with your own initial message
   const INITIAL_MESSAGE =
-    "👋 Welcome to Centonis! We're experts in AI consulting, chatbot development, and AI agents. Ask me anything about our services, AI solutions, or how we can help your business. I'm here to assist you!";
+    "Welcome to the Phil Moore & Doris Gee Real Estate Chatbot! 🏡✨ I'm here to help with all your real estate questions—whether you're looking for listings, market trends, or buying and selling advice. Ask me anything!";
   // Initialize suggestions state with default suggestions
   const [suggestions, setSuggestions] = useState(INITAL_SUGGESTIONS);
 

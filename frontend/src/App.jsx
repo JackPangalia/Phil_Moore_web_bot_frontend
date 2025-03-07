@@ -74,7 +74,7 @@ function App() {
       ref={appContainerRef}
       className={`z-50
           h-screen w-screen
-          rounded-2xl shadow-lg flex flex-col transition-all duration-300 bg-zinc-950 overflow-hidden`}
+           shadow-lg flex flex-col transition-all duration-300 bg-black overflow-hidden`}
       onWheel={(e) => e.stopPropagation()}
     >
       <Header
