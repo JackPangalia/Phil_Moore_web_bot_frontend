@@ -52,7 +52,7 @@ const ChatContainer = ({
           />
         ))}
 
-        {isLoading && <LoadingIndicator />}
+        {isLoading && <p className = 'text-white'>loading</p>}
 
         {suggestions.length > 0 && (
           <SuggestionList

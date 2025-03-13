@@ -87,27 +87,58 @@ function parsePropertyListings(message) {
   });
 }
 
-/**
- * Enhanced Message component with property listing parsing
- * This is a modified version that wraps the original Message component
- */
+// Message.jsx
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { memo } from "react";
+import LoadingIndicator from "./LoadingIndicator"; // Import your loading indicator
 
 const Message = ({ messageType, message }) => {
   // Remove bracketed annotations like 【some text】 from the message
-  const cleanedMessage = message.replace(/【[^】]+】/g, '');
-  
-  // Parse and render property listings if message is from AI
-  const processedMessage = messageType === "ai" 
-    ? parsePropertyListings(cleanedMessage) 
-    : cleanedMessage;
-  
-  // Determine if the message contains HTML for property listings
-  const containsPropertyListings = messageType === "ai" && 
-    processedMessage !== cleanedMessage;
-  
+  const cleanedMessage = message.replace(/【[^】]+】/g, "");
+
+  // Check if this AI message contains a JSON code block
+  if (messageType === "ai" && cleanedMessage.includes("```json")) {
+    // Try to match a complete JSON block (with closing backticks)
+    const completeJsonBlock = cleanedMessage.match(/```json\s*([\s\S]*?)\s*```/);
+    if (!completeJsonBlock) {
+      // Incomplete JSON detected.
+      // Extract the text before the JSON block starts.
+      const jsonStartIndex = cleanedMessage.indexOf("```json");
+      const textBefore = cleanedMessage.substring(0, jsonStartIndex);
+
+      return (
+        <div
+          className={`p-3 text-[14px] flex flex-col gap-3 rounded ${
+            messageType === "ai"
+              ? "bg-gradient-to-t bg-zinc-950 w-9/10 animate-slide-in-left shadow-lg text-gray-300"
+              : "bg-red-600 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
+          }`}
+        >
+          {messageType === "ai" && (
+            <div className="flex items-center gap-3 font-medium">
+              <span className="bg-red-600 py-1 px-2 text-xs text-gray-200 rounded">
+                AI
+              </span>
+            </div>
+          )}
+          <div className="markdown">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {textBefore}
+            </ReactMarkdown>
+            <p className = 'text-white'>loading</p>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  // Process the message normally if there's no incomplete JSON block
+  const processedMessage =
+    messageType === "ai" ? parsePropertyListings(cleanedMessage) : cleanedMessage;
+  const containsPropertyListings =
+    messageType === "ai" && processedMessage !== cleanedMessage;
+
   return (
     <div
       className={`p-3 text-[14px] flex flex-col gap-3 rounded ${
@@ -123,11 +154,13 @@ const Message = ({ messageType, message }) => {
           </span>
         </div>
       )}
-      <div className='markdown'>
+      <div className="markdown">
         {containsPropertyListings ? (
           <div dangerouslySetInnerHTML={{ __html: processedMessage }} />
         ) : (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{processedMessage}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {processedMessage}
+          </ReactMarkdown>
         )}
       </div>
     </div>
