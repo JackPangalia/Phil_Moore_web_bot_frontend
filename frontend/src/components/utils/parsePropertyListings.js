@@ -1,8 +1,3 @@
-/**
- * Parse and render property listings from JSON to HTML
- * @param {string} message - The message content that may contain JSON property listings
- * @returns {string} The message with JSON property listings converted to HTML cards
- */
 function parsePropertyListings(message) {
   // Regular expression to find JSON blocks inside triple backticks
   const jsonRegex = /```json\s*([\s\S]*?)\s*```/g;
@@ -86,52 +81,3 @@ function parsePropertyListings(message) {
     }
   });
 }
-
-/**
- * Enhanced Message component with property listing parsing
- * This is a modified version that wraps the original Message component
- */
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { memo } from "react";
-
-const Message = ({ messageType, message }) => {
-  // Remove bracketed annotations like 【some text】 from the message
-  const cleanedMessage = message.replace(/【[^】]+】/g, '');
-  
-  // Parse and render property listings if message is from AI
-  const processedMessage = messageType === "ai" 
-    ? parsePropertyListings(cleanedMessage) 
-    : cleanedMessage;
-  
-  // Determine if the message contains HTML for property listings
-  const containsPropertyListings = messageType === "ai" && 
-    processedMessage !== cleanedMessage;
-  
-  return (
-    <div
-      className={`p-3 text-[14px] flex flex-col gap-3 rounded ${
-        messageType === "ai"
-          ? "bg-gradient-to-t bg-zinc-950 w-9/10 animate-slide-in-left shadow-lg text-gray-300"
-          : "bg-red-600 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
-      }`}
-    >
-      {messageType === "ai" && (
-        <div className="flex items-center gap-3 font-medium">
-          <span className="bg-red-600 py-1 px-2 text-xs text-gray-200 rounded">
-            AI
-          </span>
-        </div>
-      )}
-      <div className='markdown'>
-        {containsPropertyListings ? (
-          <div dangerouslySetInnerHTML={{ __html: processedMessage }} />
-        ) : (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{processedMessage}</ReactMarkdown>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default memo(Message);

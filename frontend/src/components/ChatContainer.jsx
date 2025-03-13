@@ -37,7 +37,7 @@ const ChatContainer = ({
 
   return (
     <>
-      <div className="flex-1 overflow-y-auto px-5 pt-5 pb-[4.3rem] space-y-4 ">
+      <div className="flex-1 overflow-y-auto px-5 pt-5 pb-[4.3rem] space-y-5 ">
         {messages.length === 0 && (
           <div className="text-center text-gray-500 mt-10">
             <p>Start a new conversation</p>

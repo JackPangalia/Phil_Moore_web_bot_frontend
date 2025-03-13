@@ -13,13 +13,13 @@ import Send from "../Icons/Send";
  */
 const ChatInput = ({ inputMessage, onInputChange, onSendMessage, isLoading }) => {
   return (
-    <div className="absolute bottom-0 left-4 right-4 z-10 bg-black h-[4rem]  text-white">
+    <div className="absolute bottom-0 left-4 right-4 z-10 bg-black h-[4rem] text-white">
       <form
         onSubmit={onSendMessage}
-        className="shadow-xs border border-zinc-700  flex items-center "
+        className=" border-zinc-700 flex items-center rounded bg-zinc-950"
       >
         <input
-          className="flex-1 outline-none px-4 py-1"
+          className="flex-1 outline-none px-5 py-2"
           placeholder="Ask a question..."
           value={inputMessage}
           onChange={onInputChange}

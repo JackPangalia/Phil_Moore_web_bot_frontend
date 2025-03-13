@@ -2,10 +2,10 @@ const Send = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="black"
+      fill="white"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#464952"
+      stroke="black"
       className="size-6 w-10 h-10"
     >
       <path
