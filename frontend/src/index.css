@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
+/** loader styles */
+
 .loader {
   width: 40px;
   aspect-ratio: 2.3;
-  --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+  --_g: no-repeat radial-gradient(circle closest-side, white 90%, #0000);
   background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
   background-size: calc(100% / 3) 50%;
   animation: l3 1s infinite linear;
@@ -21,4 +23,99 @@
   80% {
     background-position: 0% 50%, 50% 50%, 100% 100%;
   }
+}
+
+/** enhanced-markdown-styles.css */
+
+.ai-message .react-markdown p {
+  margin-bottom: 1rem;
+}
+
+.react-markdown h1,
+.react-markdown h2,
+.react-markdown h3,
+.react-markdown h4,
+.react-markdown h5,
+.react-markdown h6 {
+  font-weight: 600; /* Slightly bolder headings */
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.react-markdown h1 {
+  font-size: 2.2rem;
+  border-bottom: 1px solid #eee; /* Added subtle underline to h1 */
+  padding-bottom: 0.5rem;
+}
+
+.react-markdown h2 {
+  font-size: 1.9rem;
+}
+
+.react-markdown h3 {
+  font-size: 1.6rem;
+}
+
+.react-markdown h4 {
+  font-size: 1.3rem;
+}
+
+.react-markdown h5 {
+  font-size: 1.15rem;
+}
+
+.react-markdown h6 {
+  font-size: 1rem;
+  color: #555; /* Slightly lighter h6 */
+}
+
+.react-markdown strong,
+.react-markdown b {
+  font-weight: 700; /* Stronger bold */
+}
+
+.react-markdown em,
+.react-markdown i {
+  font-style: italic;
+  color: #666; /* Slightly darker italic */
+}
+
+.react-markdown ul,
+.react-markdown ol {
+  list-style-type: square;
+  margin-left: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.react-markdown li {
+  margin-bottom: 0.6rem;
+}
+
+/** Scrollbar styles */
+
+/* Width of the entire scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Adjust as needed */
+}
+
+/* Track (the area where the thumb moves) */
+::-webkit-scrollbar-track {
+  background: black; /* Light gray background */
+}
+
+/* Handle (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #333030; /* Darker gray background */
+  border-radius: 6px; /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Even darker gray on hover */
+}
+
+/* Corner (where horizontal and vertical scrollbars meet) */
+::-webkit-scrollbar-corner {
+  background: #f1f1f1;
 }

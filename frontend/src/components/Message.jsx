@@ -1,3 +1,8 @@
+import React, { memo } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import RealEsateLoadingIndicator from "./RealEsateLoadingIndicator";
+
 /**
  * Parse and render property listings from JSON to HTML
  * @param {string} message - The message content that may contain JSON property listings
@@ -6,24 +11,24 @@
 function parsePropertyListings(message) {
   // Regular expression to find JSON blocks inside triple backticks
   const jsonRegex = /```json\s*([\s\S]*?)\s*```/g;
-  
+
   return message.replace(jsonRegex, (match, jsonString) => {
     try {
       // Parse the JSON data
       const data = JSON.parse(jsonString);
-      
+
       // If no listings or empty array, return original JSON
       if (!data.listings || data.listings.length === 0) {
         return match;
       }
-      
+
       // Generate HTML for the property listings
       let listingsHTML = `
         <div class="property-listings-container my-4">
           <div class="text-sm text-gray-400 mb-2">Found ${data.totalResults} properties</div>
           <div class="listings-grid grid gap-4">
       `;
-      
+
       // Generate a card for each property listing
       data.listings.forEach(listing => {
         // Format the price with commas and dollar sign
@@ -32,18 +37,18 @@ function parsePropertyListings(message) {
           currency: 'CAD',
           maximumFractionDigits: 0
         }).format(listing.price);
-        
+
         // Format square footage with commas
         const formattedSqFt = new Intl.NumberFormat('en-US').format(listing.squareFeet);
-        
+
         listingsHTML += `
           <div class="property-card bg-zinc-900 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
             <div class="property-image h-48 w-full bg-zinc-800 overflow-hidden">
               <img 
-                src="${listing.imageUrl || '/placeholder-home.jpg'}" 
+                src="${listing.imageUrl || '/house-placeholder.png'}" 
                 alt="${listing.address}" 
                 class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='/placeholder-home.jpg';"
+                onerror="this.onerror=null; this.src='/house-placeholder.png';"
               />
             </div>
             <div class="property-details p-4">
@@ -72,12 +77,12 @@ function parsePropertyListings(message) {
           </div>
         `;
       });
-      
+
       listingsHTML += `
           </div>
         </div>
       `;
-      
+
       return listingsHTML;
     } catch (error) {
       // If JSON parsing fails, return the original string
@@ -86,12 +91,6 @@ function parsePropertyListings(message) {
     }
   });
 }
-
-// Message.jsx
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { memo } from "react";
-import LoadingIndicator from "./LoadingIndicator"; // Import your loading indicator
 
 const Message = ({ messageType, message }) => {
   // Remove bracketed annotations like 【some text】 from the message
@@ -109,24 +108,18 @@ const Message = ({ messageType, message }) => {
 
       return (
         <div
-          className={`p-3 text-[14px] flex flex-col gap-3 rounded ${
+          className={`p-4 text-[14px] flex flex-col gap-3 rounded-xl ${
             messageType === "ai"
-              ? "bg-gradient-to-t bg-zinc-950 w-9/10 animate-slide-in-left shadow-lg text-gray-300"
-              : "bg-red-600 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
+              ? "bg-gradient-to-b from-black to-black w-11/12 animate-slide-in-left shadow-lg text-gray-300 border border-zinc-800 ai-message"
+              : "bg-gradient-to-b from-red-600 to-red-700 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
           }`}
         >
-          {messageType === "ai" && (
-            <div className="flex items-center gap-3 font-medium">
-              <span className="bg-red-600 py-1 px-2 text-xs text-gray-200 rounded">
-                AI
-              </span>
-            </div>
-          )}
-          <div className="markdown">
+          {messageType === "ai" && <div className="text-sm text-gray-400">AI</div>}
+          <div className="react-markdown">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {textBefore}
             </ReactMarkdown>
-            <p className = 'text-white'>loading</p>
+            <RealEsateLoadingIndicator />
           </div>
         </div>
       );
@@ -141,20 +134,14 @@ const Message = ({ messageType, message }) => {
 
   return (
     <div
-      className={`p-3 text-[14px] flex flex-col gap-3 rounded ${
+      className={`p-4 text-[14px] flex flex-col gap-3 rounded-xl ${
         messageType === "ai"
-          ? "bg-gradient-to-t bg-zinc-950 w-9/10 animate-slide-in-left shadow-lg text-gray-300"
-          : "bg-red-600 text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
+          ? "bg-gradient-to-b from-black to-black w-11/12 animate-slide-in-left shadow-lg text-gray-300 border border-zinc-800 ai-message"
+          : "bg-gradient-to-b from-red-600 to-red-700  text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
       }`}
     >
-      {messageType === "ai" && (
-        <div className="flex items-center gap-3 font-medium">
-          <span className="bg-red-600 py-1 px-2 text-xs text-gray-200 rounded">
-            AI
-          </span>
-        </div>
-      )}
-      <div className="markdown">
+      {messageType === "ai" && <div className="text-sm text-gray-400">AI</div>}
+      <div className="react-markdown ">
         {containsPropertyListings ? (
           <div dangerouslySetInnerHTML={{ __html: processedMessage }} />
         ) : (

@@ -43,6 +43,10 @@ const ChatContainer = ({
             <p>Start a new conversation</p>
           </div>
         )}
+        <div className = 'text-xs flex justify-end gap-1'>
+          <span className = 'text-zinc-500'>powered by</span><a href = 'https://www.centonis.com' target = '_blank' className = 'text-zinc-300'>centonis</a>
+        </div>
+
 
         {messages.map((msg, index) => (
           <Message
@@ -52,7 +56,7 @@ const ChatContainer = ({
           />
         ))}
 
-        {isLoading && <p className = 'text-white'>loading</p>}
+        {isLoading && <LoadingIndicator />}
 
         {suggestions.length > 0 && (
           <SuggestionList
