@@ -3,27 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>Mock Vanilla Site For Testing Chatbots</title>
+    <style>
+      /* Chatbot Toggle Button Styles */
+      .chatbot-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        background-color: oklch(0.577 0.245 27.325);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 14px 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight:bold;
+      }
+
+      .chatbot-toggle:hover {
+        background-color: oklch(0.577 0.245 27.325);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .chatbot-iframe-wrapper {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .chatbot-iframe {
+        border: none;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .chatbot-iframe-wrapper {
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          border-radius: 0;
+        }
+
+        .chatbot-iframe {
+          width: 100%;
+          height: 100%;
+          border-radius: 0;
+        }
+      }
+    </style>
   </head>
   <body>
     <script>
       function createChatbotIframe() {
         // Create wrapper div
         const wrapper = document.createElement("div");
-        wrapper.classList.add(
-          "fixed",
-          "z-50",
-          "transition-all",
-          "duration-300"
-        );
+        wrapper.className = "chatbot-iframe-wrapper";
 
         // Create iframe
         const iframe = document.createElement("iframe");
-        iframe.id = "ai-chatbot";
+        iframe.className = "chatbot-iframe";
         //! Replace the src with the actual URL of the chatbot frontend
         iframe.src = "http://localhost:5173/Centonis_ai_web_chatbot_frontend"; // Replace with actual embed URL
-        iframe.style.border = "none";
         iframe.scrolling = "no";
 
         // Attach iframe to wrapper
@@ -35,27 +88,15 @@
 
           if (mobile) {
             // Mobile styles: full screen iframe
-            wrapper.classList.remove("bottom-[1rem]", "right-6");
-            wrapper.classList.add("bottom-0", "right-0", "left-0", "top-0");
-
             iframe.style.width = "100vw";
             iframe.style.height = "100vh";
-            iframe.style.maxWidth = "100%";
-            iframe.style.maxHeight = "100%";
-            iframe.classList.remove("rounded-2xl");
           } else {
             // Desktop styles: fixed dimensions
-            wrapper.classList.remove("bottom-0", "right-0", "left-0", "top-0");
-            wrapper.classList.add("bottom-[1rem]", "right-6");
-
             iframe.style.width = "90vw";
-            iframe.style.height = "80vh";
             iframe.style.maxWidth = "400px";
+            iframe.style.height = "80vh";
             iframe.style.maxHeight = "700px";
-            iframe.classList.add("rounded-2xl");
           }
-
-          iframe.classList.add("shadow-lg", "bg-white");
         }
 
         // Handle messages from iframe
@@ -84,32 +125,15 @@
           }
         }
 
-        // Prevent wheel event propagation
-        function preventWheelPropagation(e) {
-          const rect = iframe.getBoundingClientRect();
-          if (
-            e.clientX >= rect.left &&
-            e.clientX <= rect.right &&
-            e.clientY >= rect.top &&
-            e.clientY <= rect.bottom
-          ) {
-            e.stopPropagation();
-          }
-        }
-
         // Initial setup
         checkMobile();
         window.addEventListener("resize", checkMobile);
         window.addEventListener("message", handleMessages);
-        wrapper.addEventListener("wheel", preventWheelPropagation, {
-          passive: false,
-        });
 
-        // Cleanup function (call this when you want to remove the iframe)
+        // Cleanup function
         function cleanup() {
           window.removeEventListener("resize", checkMobile);
           window.removeEventListener("message", handleMessages);
-          wrapper.removeEventListener("wheel", preventWheelPropagation);
           wrapper.remove();
         }
 
@@ -125,28 +149,11 @@
 
         // Create toggle button
         const toggleButton = document.createElement("button");
+        toggleButton.className = "chatbot-toggle";
         toggleButton.textContent = "Chatbot";
-        toggleButton.classList.add(
-          "bg-black",
-          "text-white",
-          "fixed",
-          "bottom-3",
-          "right-5",
-          "z-50",
-          "px-5",
-          "py-3",
-          "rounded-full",
-          "shadow-md",
-          "transition-all",
-          "duration-300",
-          "flex",
-          "gap-2",
-          "items-center"
-        );
 
         // Create container for iframe
         const iframeContainer = document.createElement("div");
-        iframeContainer.classList.add("fixed", "bottom-3", "right-5", "z-50");
 
         // Toggle chatbot visibility
         function toggleChatbot() {

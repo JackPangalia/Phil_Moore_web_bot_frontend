@@ -21,16 +21,22 @@ const useChat = () => {
 
   // Define all available suggestions
   const ALL_SUGGESTIONS = [
-    "I'm looking to sell my house! Can you help?",
-    "Show me homes for sale in Burnaby.",
-    "Can you explain the home-buying process?",
-    "What are the current mortgage rates?",
-    "How do I prepare my home for selling?",
-    "What documents do I need to buy a house?",
-    "Tell me about the real estate market in Vancouver",
-    "What services do you offer for sellers?",
-    "How long does it take to close on a house?",
-    "What are the closing costs when buying a home?",
+    "What areas do you serve in the Greater Vancouver region?\u200b",
+    "Can you provide a free home evaluation for my property?\u200b",
+    "How can I get in touch with Doris Gee or Phil Moore?\u200b",
+    "What are the current active listings available?",
+    "What services do you offer for first-time home buyers?\u200b",
+    "Do you provide assistance for first-time home sellers?",
+    "What is the process for buying a home with your team?\u200b",
+    "How do you assist clients in selling their homes?\u200b",
+    "Who are the members of your real estate team?\u200b",
+    "What makes your team different from other real estate agents?\u200b",
+    "What are the current market trends in Burnaby real estate?",
+    "How can I refer a friend or family member to your services?\u200b",
+    "Do you have any resources for understanding the home-buying process?\u200b",
+    "What neighborhoods do you recommend for families in Vancouver?\u200b",
+    "How do I schedule a consultation with your team?\u200b",
+    "What are the benefits of working with RE/MAX Crest Realty?"
   ];
 
   // Track used suggestions
