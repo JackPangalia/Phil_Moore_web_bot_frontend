@@ -32,16 +32,21 @@ const useSocketConnection = ({
 
   useEffect(() => {
     console.log("Connecting to Socket.IO server...");
-    const newSocket = io("https://phil-moore-web-bot-backend-60478aeed825.herokuapp.com/", {
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-      transports: ['websocket', 'polling'],
-      withCredentials: true,
-      extraHeaders: {
-        "Origin": "https://jackpangalia.github.io"
-      }
-    });
+    const newSocket = io("http://localhost:3001", {
+       reconnection: true,
+       reconnectionAttempts: 5,
+       reconnectionDelay: 1000,
+     });
+    // const newSocket = io("https://phil-moore-web-bot-backend-60478aeed825.herokuapp.com/", {
+    //   reconnection: true,
+    //   reconnectionAttempts: 5,
+    //   reconnectionDelay: 1000,
+    //   transports: ['websocket', 'polling'],
+    //   withCredentials: true,
+    //   extraHeaders: {
+    //     "Origin": "https://jackpangalia.github.io"
+    //   }
+    // });
 
     setSocket(newSocket);
 

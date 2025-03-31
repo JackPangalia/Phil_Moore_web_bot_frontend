@@ -16,7 +16,7 @@ const ChatInput = ({ inputMessage, onInputChange, onSendMessage, isLoading }) =>
     <div className="absolute bottom-0 left-4 right-4 z-10  h-[4rem] text-white bg-black">
       <form
         onSubmit={onSendMessage}
-        className="flex items-center rounded bg-gradient-to-b from-zinc-950 to-black shadow-lg text-gray-300 border border-zinc-800 mr-4"
+        className="flex items-center bg-gradient-to-b from-zinc-950 to-black shadow-lg text-gray-300 border border-zinc-800 mr-4"
       >
         <input
           className="flex-1 outline-none px-5 py-2"
