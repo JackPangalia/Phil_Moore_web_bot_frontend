@@ -2,6 +2,11 @@
 
 /** loader styles */
 
+* {
+  font-family: 'Raleway', sans-serif;
+  
+}
+
 .loader {
   width: 40px;
   aspect-ratio: 2.3;
@@ -91,6 +96,7 @@
 .react-markdown li {
   margin-bottom: 0.6rem;
 }
+
 
 /** Scrollbar styles */
 

@@ -11,7 +11,7 @@ const SuggestionList = ({ suggestions, onSuggestionClick }) => {
       {suggestions.map((suggestion, index) => (
         <button
           key={index}
-          className=" text-left text-zinc-400 text-sm py-2 px-2 whitespace-normal break-words w-fit hover:text-zinc-200 tranition-colors duration-200 hover:cursor-pointer"
+          className=" text-left text-gray-300 text-sm py-2 px-2 whitespace-normal break-words w-fit hover:text-white tranition-colors duration-200 hover:cursor-pointer"
           onClick={() => onSuggestionClick(suggestion)}
         >
           {suggestion}

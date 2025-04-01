@@ -44,7 +44,7 @@ function parsePropertyListings(message) {
         );
 
         listingsHTML += `
-          <div class="property-card bg-zinc-950 border pt-1 px-1 border-zinc-800 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+          <div class="property-card bg-black border pt-1 px-1 border-zinc-800 overflow-hidden shadow-md hover:shadow-lg transition-shadow">
             <div class="property-image h-48 w-full bg-zinc-800 overflow-hidden">
               <img 
                 src="${listing.imageUrl || "/house-placeholder.png"}" 
@@ -150,10 +150,10 @@ const Message = ({ messageType, message }) => {
 
   return (
     <div
-      className={`px-4 py-3 text-[14px] flex flex-col gap-3  ${
+      className={`px-4 py-4 text-[14px] flex flex-col gap-3  ${
         messageType === "ai"
-          ? "bg-gradient-to-b from-black to-black w-11/12 animate-slide-in-left shadow-lg text-gray-300 border border-zinc-800 ai-message"
-          : "bg-red-600  text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md"
+          ? "bg-gradient-to-b from-black to-black w-11/12 animate-slide-in-left shadow-lg text-gray-300 border border-zinc-800 ai-message "
+          : "bg-red-600  text-gray-200 w-fit max-w-9/10 ml-auto break-words animate-slide-in-right shadow-md "
       }`}
     >
       {messageType === "ai" && (
